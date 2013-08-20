@@ -76,9 +76,9 @@ void NifImporter::ReadBlocks()
 {
    //blocks = ReadNifList( name );
 	Niflib::NifInfo info;
-	Niflib::NifOptions opts;
-	opts.exceptionOnErrors = false;
-	root = ReadNifTree(name, &info, &opts);
+	/*Niflib::NifOptions opts;
+	opts.exceptionOnErrors = false;*/
+	root = ReadNifTree(name, &info/*, &opt*/);
 	nifVersion = info.version;
 	userVersion = info.userVersion;
 	BuildNodes();

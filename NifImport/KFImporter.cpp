@@ -23,11 +23,11 @@ void KFImporter::ReadBlocks()
    try
    {
 	   Niflib::NifInfo info;
-	   Niflib::NifOptions opts;
-	   opts.exceptionOnErrors = false;
+	  // Niflib::NifOptions opts;
+	  // opts.exceptionOnErrors = false;
 
 	   // Handle Freedom Force Animation Import
-	   std::vector<NiObjectRef> roots = ReadNifList(name.c_str(), &info, &opts);
+	   std::vector<NiObjectRef> roots = ReadNifList(name.c_str(), &info/*, &opts*/);
 	   kf = DynamicCast<NiControllerSequence>(roots);
 	   if (kf.size() == 0)
 	   {
