@@ -9,6 +9,8 @@
 #include "obj/hkPackedNiTriStripsData.h"
 #include "obj/bhkPackedNiTriStripsShape.h"
 #include "obj/bhkMoppBvTreeShape.h"
+#include "obj/bhkCompressedMeshShape.h"
+#include "obj/bhkCompressedMeshShapeData.h"
 
 #include "..\NifProps\bhkHelperFuncs.h"
 #include "..\NifProps\bhkHelperInterface.h"
@@ -331,14 +333,20 @@ Exporter::Result Exporter::exportCollision(NiNodeRef &parent, INode *node)
 			bhkShapeRef shape = makeCollisionShape(node, tm, body, HavokMaterial(NP_DEFAULT_HVK_MATERIAL));
 			if (shape)
 			{
+				/*if (shape->IsDerivedType(bhkCompressedMeshShape::TYPE))
+				{
+					bhkCompressedMeshShapeRef shape = DynamicCast<bhkCompressedMeshShape>(shape);
+					shape->SetTarget(newParent);
+				}*/
+
 				body->SetShape(DynamicCast<bhkShape>(shape));
 
 				bhkCollisionObjectRef co = new bhkCollisionObject();
 				co->SetBody(DynamicCast<NiObject>(body));
 				newParent->SetCollisionObject(DynamicCast<NiCollisionObject>(co));
-
 				if ( body->GetMass() != 0.0 )
 					body->UpdateMassProperties(1.0f, true, body->GetMass()); 
+
 			}
 		}
 	} else if (isCollisionGroup(node) && !mFlattenHierarchy) {
@@ -638,14 +646,14 @@ bhkShapeRef Exporter::makeCollisionShape(INode *node, Matrix3& tm, bhkRigidBodyR
 		shape = makeProxyShape(node, os.obj, tm, mtlDefault);
 	else if (os.obj->SuperClassID() == GEOMOBJECT_CLASS_ID)
 	{
-		if (Modifier* mod = GetbhkCollisionModifier(node))
-		{
-			shape = makeModifierShape(node, os.obj, mod, tm, mtlDefault);
-		}
-		else
-		{
-			shape = makeTriStripsShape(node, tm, mtlDefault);
-		}
+			if (Modifier* mod = GetbhkCollisionModifier(node))
+			{
+				shape = makeModifierShape(node, os.obj, mod, tm, mtlDefault);
+			}
+			else
+			{
+				shape = makeTriStripsShape(node, tm, mtlDefault);
+			}
 	}
 	return shape;
 }
@@ -1090,49 +1098,107 @@ bhkShapeRef Exporter::makeListShape(INode *node, Matrix3& tm, bhkRigidBodyRef bo
 		}
 		// Accumulate potential bhkPackedStripShapes
 
-		bhkListShapeRef shape = new bhkListShape();
-		HavokMaterial mtl = HavokMaterial(pblock2->GetInt(PB_MATERIAL, 0, 0));
-		if (mtl < 0) mtl = mtlDefault;
-		shape->SetMaterial(mtl);
-
-		// Locate all packed shapes for efficient mopp packing
-		INodeTab packedShapes, otherShapes;
-		for (int i = 0; i < nBlocks; i++) {
-			INode *tnode = NULL;
-			pblock2->GetValue(PB_MESHLIST,0,tnode,FOREVER,i);	
-			if (tnode != NULL)
-				AccumulateSubShapesFromGroup(tnode, packedShapes, otherShapes);	
-		}
-
-		vector<bhkShapeRef> shapes;
-
-		if (packedShapes.Count() > 0)
+		if (IsSkyrim() && body->GetLayer() == OL_STATIC  )
 		{
-			if (bhkShapeRef subshape = makeModPackedTriStripShape(packedShapes, tm, HavokMaterial(mtl)))
-				shapes.push_back(subshape);
-		}
 
-		for (int i = 0; i < otherShapes.Count(); i++) {
-			INode *tnode = otherShapes[i];
-			if (tnode != NULL && (!tnode->IsHidden() || mExportHidden))
+			HavokMaterial mtl = HavokMaterial(pblock2->GetInt(PB_MATERIAL, 0, 0));
+			if (mtl < 0) mtl = mtlDefault;
+			bhkCompressedMeshShapeRef shape = new bhkCompressedMeshShape();
+			shape->SetSkHMat(SkyrimHavokMaterial(500811281));
+			//shape->SetTarget();
+			bhkCompressedMeshShapeDataRef cmsdata = new bhkCompressedMeshShapeData();
+			
+
+
+
+
+
+
+
+
+			vector<bhkCMSDChunk> chunks;
+
+				INodeTab nodes;
+				for (int i = 0; i < nBlocks; ++i) 
+				{
+					INode *tnode = NULL;
+					pblock2->GetValue(PB_MESHLIST,0,tnode,FOREVER,i);	
+					if (tnode != NULL)
+					nodes.Insert(0, 1, &tnode);
+				}
+
+				for (int i = 0; i < nodes.Count(); ++i) 
+				{
+					INode *tnode = nodes[i];
+					if (tnode != NULL && (!tnode->IsHidden() || mExportHidden))
+					{
+						bhkCMSDChunk chunk = makeCMSDChunk(tnode, tm, HavokMaterial(mtl));
+						//if (chunk)
+						chunks.push_back(chunk);
+					}
+				}	
+
+				cmsdata->SetChunks(chunks);
+				shape->SetData(cmsdata);
+				return bhkShapeRef(shape);
+
+		}
+		else
+		{
+			bhkListShapeRef shape = new bhkListShape();
+			HavokMaterial mtl = HavokMaterial(pblock2->GetInt(PB_MATERIAL, 0, 0));
+			if (mtl < 0) mtl = mtlDefault;
+			shape->SetMaterial(mtl);
+
+			// Locate all packed shapes for efficient mopp packing
+			INodeTab packedShapes, otherShapes;
+			for (int i = 0; i < nBlocks; i++) {
+				INode *tnode = NULL;
+				pblock2->GetValue(PB_MESHLIST,0,tnode,FOREVER,i);	
+				if (tnode != NULL)
+					AccumulateSubShapesFromGroup(tnode, packedShapes, otherShapes);	
+			}
+
+			vector<bhkShapeRef> shapes;
+
+			if (packedShapes.Count() > 0)
 			{
-				bhkShapeRef subshape = makeCollisionShape(tnode, tm, body, HavokMaterial(mtl));
-				if (subshape)
+				if (bhkShapeRef subshape = makeModPackedTriStripShape(packedShapes, tm, HavokMaterial(mtl)))
 					shapes.push_back(subshape);
 			}
-		}
-		shape->SetSubShapes(shapes);
 
-		if (shapes.size() == 1) // ignore the list when only one object is present
-		{
-			return shapes[0];
-		}
-		else if (!shapes.empty())
-		{
-			return bhkShapeRef(shape);
+			for (int i = 0; i < otherShapes.Count(); i++) {
+				INode *tnode = otherShapes[i];
+				if (tnode != NULL && (!tnode->IsHidden() || mExportHidden))
+				{
+					bhkShapeRef subshape = makeCollisionShape(tnode, tm, body, HavokMaterial(mtl));
+					if (subshape)
+						shapes.push_back(subshape);
+				}
+			}
+			shape->SetSubShapes(shapes);
+
+			if (shapes.size() == 1) // ignore the list when only one object is present
+			{
+				return shapes[0];
+			}
+			else if (!shapes.empty())
+			{
+				return bhkShapeRef(shape);
+			}
 		}
 	}
 	return bhkShapeRef();
+}
+
+bhkCMSDChunk Exporter::makeCMSDChunk(INode *node, Matrix3& tm, HavokMaterial mtlDefault)
+{
+	bhkCMSDChunk chunk;
+	
+
+
+
+	return chunk;
 }
 
 bhkShapeRef Exporter::makeProxyShape(INode *node, Object *obj, Matrix3& tm, HavokMaterial mtlDefault)

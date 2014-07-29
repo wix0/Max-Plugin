@@ -259,6 +259,15 @@ INT_PTR CALLBACK NifExportOptionsDlgProc(HWND hWnd,UINT message,WPARAM wParam,LP
 			{
 				int idx = SendDlgItemMessage(hWnd, IDC_CBO_ROOT_TYPE, CB_GETCURSEL, 0, 0);
 				Exporter::mRootType = (idx >= 0) ? Exporter::mRootTypes[idx] : "NiNode";
+				/*if (idx == 0)
+				{
+					Exporter::mRootType = "NiNode";
+				}
+				else
+				{
+					Exporter::mRootType = "BSFadeNode";
+					#define BSFADENODE
+				}*/
 			}
 
             EndDialog(hWnd, imp->mDlgResult=IDOK);
@@ -495,10 +504,22 @@ int NifExport::DoExportInternal(const TCHAR *name, ExpInterface *ei, Interface *
    info.exportInfo1 = FormatText("Niftools 3ds Max Plugins %s", fileVersion.data());
 
 	Exporter exp(i, appSettings);
-	
-	Ref<NiNode> root = DynamicCast<NiNode>(Niflib::ObjectRegistry::CreateObject(Exporter::mRootType));
-	if (root == NULL)
-		root = new NiNode();
+
+//Ref<NiNode> root = DynamicCast<NiNode>(Niflib::ObjectRegistry::CreateObject(Exporter::mRootType));
+
+Ref<NiNode> root;
+
+if (Exporter::mRootType == "BSFadeNode" )
+{
+	root = DynamicCast<NiNode>(new BSFadeNode);
+}
+else
+{
+	root = DynamicCast<NiNode>(new NiNode);
+}
+
+if (root == NULL) root = new NiNode();
+
 	if ( exp.IsFallout3() || exp.IsSkyrim() )
 		root->SetFlags(14);
 

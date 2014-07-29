@@ -11,6 +11,8 @@ namespace Niflib
    class bhkNiTriStripsShape;
    class bhkPackedNiTriStripsShape;
 
+   struct bhkCMSDChunk;
+
 }
 using namespace Niflib;
 
@@ -301,6 +303,8 @@ public:
    bhkShapeRef				makeModPackedTriStripShape(INode *node, Modifier* mod, Mesh& mesh, Matrix3& tm, HavokMaterial mtlDefault);
    bhkShapeRef				makeModPackedTriStripShape(INode *tnode, Matrix3& tm, HavokMaterial mtlDefault);
    bhkShapeRef				makeModPackedTriStripShape(INodeTab &map, Matrix3& tm, HavokMaterial mtlDefault);
+
+   bhkCMSDChunk				makeCMSDChunk(INode *node, Matrix3& tm, HavokMaterial mtlDefault);
 
    /* skin export */
    bool                 makeSkin(NiTriBasedGeomRef shape, INode *node, FaceGroup &grp, TimeValue t);

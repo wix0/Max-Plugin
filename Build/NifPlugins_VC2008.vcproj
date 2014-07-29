@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="NifPlugins"
 	ProjectGUID="{466F2D3E-2663-4583-A05C-128683677617}"
 	RootNamespace="NifPlugins"
@@ -499,6 +499,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -514,6 +515,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="D:\sdks\3DSMAX\max8\maxsdk\include"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -526,6 +528,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="D:\sdks\3DSMAX\max8\maxsdk\lib"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 			/>
@@ -1091,6 +1094,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1106,6 +1110,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="D:\sdks\3DSMAX\max9\maxsdk\include"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -1118,6 +1123,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="D:\sdks\3DSMAX\max9\maxsdk\lib"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 			/>
@@ -1150,6 +1156,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1165,6 +1172,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="D:\sdks\3DSMAX\max9\maxsdk\include"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -1177,6 +1185,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="D:\sdks\3DSMAX\max9\maxsdk\x64\lib"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 			/>
@@ -2037,6 +2046,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -2052,6 +2062,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="D:\sdks\3DSMAX\max2008\maxsdk\include"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -2064,6 +2075,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="D:\sdks\3DSMAX\max2008\maxsdk\lib"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 			/>
@@ -2097,6 +2109,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -2112,6 +2125,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="D:\sdks\3DSMAX\max2008\maxsdk\include"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -2124,6 +2138,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="D:\sdks\3DSMAX\max2008\maxsdk\x64\lib"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 			/>
@@ -2274,6 +2289,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -2289,6 +2305,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="D:\sdks\3DSMAX\max2009\maxsdk\include"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -2301,6 +2318,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="D:\sdks\3DSMAX\max2009\maxsdk\lib"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 			/>
@@ -2334,6 +2352,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -2349,6 +2368,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="D:\sdks\3DSMAX\max2009\maxsdk\include"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -2361,6 +2381,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="D:\sdks\3DSMAX\max2009\maxsdk\x64\lib"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 			/>
@@ -2384,6 +2405,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="if exist &quot;%MaxInstallDir%\plugcfg&quot; (&#x0D;&#x0A;if not exist &quot;%MaxInstallDir%\plugcfg\MaxNifTools.ini&quot; (&#x0D;&#x0A;copy &quot;$(SolutionDir)MaxNifTools.ini&quot; &quot;%MaxInstallDir%\plugcfg\MaxNifTools.ini&quot;&#x0D;&#x0A;)&#x0D;&#x0A;)&#x0D;&#x0A;xcopy /D /Y /I &quot;$(SolutionDir)Readme.txt&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /D /Y /I &quot;$(SolutionDir)license.txt&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /D /Y /I &quot;$(SolutionDir)ChangeLog.txt&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /D /Y /I &quot;$(SolutionDir)Authors.txt&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /D /Y /I &quot;$(SolutionDir)MaxNifTools.ini&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;xcopy /D /Y /I &quot;$(TargetPath)&quot; &quot;$(OutDir)&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -2511,6 +2533,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -2526,6 +2549,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="D:\sdks\3DSMAX\max2010\maxsdk\include"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -2538,6 +2562,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="D:\sdks\3DSMAX\max2010\maxsdk\lib"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 			/>
@@ -2571,6 +2596,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -2586,6 +2612,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="D:\sdks\3DSMAX\max2010\maxsdk\include"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -2598,6 +2625,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="D:\sdks\3DSMAX\max2010\maxsdk\x64\lib"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 			/>
@@ -2748,6 +2776,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -2763,6 +2792,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="D:\sdks\3DSMAX\max2011\maxsdk\include"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -2775,6 +2805,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="D:\sdks\3DSMAX\max2011\maxsdk\lib"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 			/>
@@ -2808,6 +2839,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -2823,6 +2855,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="D:\sdks\3DSMAX\max2011\maxsdk\include"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -2835,6 +2868,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="D:\sdks\3DSMAX\max2011\maxsdk\x64\lib"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 			/>
@@ -2986,6 +3020,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -3001,6 +3036,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="D:\sdks\3DSMAX\max2012\maxsdk\include"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -3013,6 +3049,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="D:\sdks\3DSMAX\max2012\maxsdk\lib"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 			/>
@@ -3046,6 +3083,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -3061,6 +3099,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="D:\sdks\3DSMAX\max2012\maxsdk\include"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -3073,6 +3112,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="D:\sdks\3DSMAX\max2012\maxsdk\x64\lib"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 			/>
