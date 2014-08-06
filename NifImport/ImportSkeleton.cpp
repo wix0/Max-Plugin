@@ -473,12 +473,13 @@ INode *NifImporter::CreateBone(const string& name, Point3 startPos, Point3 endPo
             float width = max(minBoneWidth, min(maxBoneWidth, len * boneWidthToLengthRatio));
             if (Object* o = n->GetObjectRef())
             {
-               setMAXScriptValue(o->GetReference(0), "width", 0, width);
-               setMAXScriptValue(o->GetReference(0), "height", 0, width);
+				int wh = 0;
+               setMAXScriptValue(o->GetReference(0), "width", 0, wh /*width*/);
+               setMAXScriptValue(o->GetReference(0), "height", 0, wh   /*width*/);
             }
 #if VERSION_3DSMAX > ((6000<<16)+(15<<8)+0) // Version 6
             n->BoneAsLine(1);
-            n->ShowBone(2);
+            n->ShowBone(1);
 #else
             //n->BoneAsLine(1);
             n->ShowBone(1);
@@ -504,8 +505,9 @@ INode *NifImporter::CreateHelper(const string& name, Point3 startPos)
          PosRotScaleNode(n, startPos, q, 1.0f, prsPos);
 
 #if VERSION_3DSMAX > ((6000<<16)+(15<<8)+0) // Version 6
-         n->BoneAsLine(dummyBonesAsLines ? 1 : 0);
-         n->ShowBone(2);
+         //n->BoneAsLine(dummyBonesAsLines ? 1 : 0);
+		 n->BoneAsLine(1);
+         n->ShowBone(1);
 #else
          //n->BoneAsLine(1);
          n->ShowBone(1);
@@ -681,11 +683,13 @@ void NifImporter::ImportBones(NiNodeRef node, bool recurse)
                   bone->Hide(node->GetVisibility() ? FALSE : TRUE);
                }
             }
-         }else if (isDummy || createNubsForBones) {
+         }
+		 else if (isDummy /*|| createNubsForBones*/) {
             bone = CreateHelper(name, p);
             PosRotScaleNode(bone, p, q, scale, prs);
             //bone->Hide(node->GetVisibility() ? FALSE : TRUE);
-         } else if (bone = CreateBone(name, p, pp, zAxis)) {
+         }
+		 else if (bone = CreateBone(name, p, pp, zAxis)) {
             PosRotScaleNode(bone, p, q, scale, prs);
             bone->Hide(node->GetVisibility() ? FALSE : TRUE);
          }

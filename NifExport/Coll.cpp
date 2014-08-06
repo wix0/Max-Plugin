@@ -462,6 +462,17 @@ bhkRigidBodyRef Exporter::makeCollisionBody(INode *node)
    QuaternionXYZW q; q.x = q.y = q.z = 0; q.w = 1.0f;
    body->SetRotation(q);
 
+   if(IsSkyrim())
+   {
+    Niflib::array<7,unsigned short> us7(7,0,62368,7107,0,0,1,65535);
+	body->SetUnknown7Shorts(us7);
+	body->setunknownTimefactorOrGravityfactor1(1);
+	body->setunknownTimefactorOrGravityfactor2(1);
+	if (mass == 0) body->SetMass(1.0);
+	body->SetMotionSystem(MO_SYS_KEYFRAMED);
+	body->SetQualityType(MO_QUAL_MOVING);
+   }
+
 	return body;
 }
 
@@ -616,6 +627,9 @@ bhkConvexVerticesShapeRef Exporter::makeConvexShape(Mesh& mesh, Matrix3& tm, Hav
 	sortVector4(norms);
 	shape->SetVertices(verts);
 	shape->SetNormalsAndDist(norms);
+
+
+
 	return shape;
 }
 

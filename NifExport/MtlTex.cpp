@@ -872,6 +872,7 @@ bool Exporter::exportNiftoolsShader(NiAVObjectRef parent, Mtl* mtl)
                texProp->SetShaderFlags1(flags1);
                texProp->SetShaderFlags2(flags2);
 
+
                TimeValue t = 0;
                texProp->SetGlossiness(80);
                //texProp->SetSpecularColor(m->getsh);
@@ -880,8 +881,8 @@ bool Exporter::exportNiftoolsShader(NiAVObjectRef parent, Mtl* mtl)
 				texProp->SetUVScale(TexCoord(1,1));
 				texProp->SetSpecularColor(TOCOLOR3(m->GetSpecular(t)));
 				texProp->SetEmissiveMultiple( 1 );
-				//texProp->SetEmissiveColor(TOCOLOR(m->GetEmmis(t)));
-				texProp->SetEmissiveColor(Color3(0, 0, 0));
+				texProp->SetEmissiveColor(Color3(emittance.r,emittance.g,emittance.b));
+				//texProp->SetEmissiveColor(Color3(0, 0, 0));
 				texProp->SetTextureClampMode(WRAP_S_WRAP_T);
 
                //texProp->SetLightingEffect1(0.3f);
